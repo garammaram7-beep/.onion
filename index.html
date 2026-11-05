@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Onion Viewer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="rings" aria-hidden="true"></div>
+  <div class="hero-text">
+    <h1>Onion Viewer</h1>
+    <p>Gib eine .onion-Adresse ein und öffne sie im Tor Browser oder über ein Gateway.</p>
+  </div>
+</header>
+
+<main>
+  <section class="panel">
+    <label for="addr">Onion-Adresse</label>
+    <input id="addr" type="text" inputmode="url" autocomplete="off" spellcheck="false"
+           placeholder="z. B. duckduckgogg42xjoc72x3sjasowoarfbgcmvfimaftt6twagswzczad.onion">
+    <p id="msg" class="msg" role="status"></p>
+    <div class="actions">
+      <button id="btn-tor" class="primary">Im Tor Browser öffnen</button>
+      <button id="btn-gw">Über Gateway öffnen</button>
+      <button id="btn-embed">Hier einbetten</button>
+      <button id="btn-save">Speichern</button>
+    </div>
+    <p class="hint">Im Tor Browser öffnest du die Seite direkt und anonym. Gateways leiten die Anfrage über einen fremden Server, der mitlesen kann.</p>
+    <p class="torstate"><button id="btn-check" class="link">Verbindung prüfen</button> <span id="tor-status"></span></p>
+  </section>
+
+  <section id="viewer" class="panel" hidden>
+    <div class="viewer-head">
+      <strong id="viewer-title">Vorschau</strong>
+      <button id="btn-close" class="link">Schließen</button>
+    </div>
+    <iframe id="frame" title="Onion-Vorschau" sandbox="allow-scripts allow-forms" referrerpolicy="no-referrer"></iframe>
+    <p class="hint">Bleibt das Fenster leer, verbietet die Seite oder das Gateway das Einbetten. Nutze dann „Über Gateway öffnen“.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Lesezeichen</h2>
+    <ul id="bm-list" class="bm-list"></ul>
+    <p id="bm-empty" class="hint">Noch keine Lesezeichen. Gib oben eine Adresse ein und wähle „Speichern“.</p>
+    <div class="actions">
+      <button id="btn-export">Exportieren</button>
+      <button id="btn-import">Importieren</button>
+      <input id="file" type="file" accept="application/json" hidden>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Gateways</h2>
+    <label for="gw-select">Aktives Gateway</label>
+    <select id="gw-select"></select>
+    <details>
+      <summary>Gateway-Liste bearbeiten</summary>
+      <p class="hint">Eine Vorlage pro Zeile. <code>{name}</code> steht für die Adresse ohne „.onion“. Gateways fallen oft aus, dann trägst du hier ein anderes ein.</p>
+      <textarea id="gw-text" rows="4" spellcheck="false"></textarea>
+      <div class="actions">
+        <button id="gw-save">Liste speichern</button>
+        <button id="gw-reset">Zurücksetzen</button>
+      </div>
+    </details>
+  </section>
+</main>
+
+<footer>Alle Daten bleiben in deinem Browser (localStorage). Diese Seite sendet nichts an einen eigenen Server.</footer>
+<script src="app.js"></script>
+</body>
+</html>
